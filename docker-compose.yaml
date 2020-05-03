@@ -1,8 +1,7 @@
 version: "3.5"
 services:
   toriel:
-    #build: .
-    image: kwoth/nadeko:latest
+    build: .
     container_name: toriel_${BRANCH_NAME}
     depends_on:
       - redis
@@ -15,7 +14,7 @@ services:
         source: ./data
         target: /app/data
     environment:
-      NadekoBot_RedisOptions: redis,name=jasmine
+      NadekoBot_RedisOptions: redis,name=toriel
       NadekoBot_ShardRunCommand: dotnet
       NadekoBot_ShardRunArguments: NadekoBot.dll {0} {1}
     restart: always
