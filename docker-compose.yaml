@@ -1,0 +1,31 @@
+version: "3.5"
+services:
+  toriel:
+    #build: .
+    image: kwoth/nadeko:latest
+    container_name: toriel_${BRANCH_NAME}
+    depends_on:
+      - redis
+    volumes:
+      - type: bind
+        source: ./credentials.json
+        target: /app/credentials.json
+        read_only: true
+      - type: bind
+        source: ./data
+        target: /app/data
+    environment:
+      NadekoBot_RedisOptions: redis,name=jasmine
+      NadekoBot_ShardRunCommand: dotnet
+      NadekoBot_ShardRunArguments: NadekoBot.dll {0} {1}
+    restart: always
+  redis:
+    image: redis:alpine
+    sysctls:
+      net.core.somaxconn: 511
+    restart: always
+  #watchtower:
+  #  image: v2tec/watchtower
+  #  volumes:
+  #    - /var/run/docker.sock:/var/run/docker.sock
+  #  command: --interval 86400 --cleanup --label-enable
