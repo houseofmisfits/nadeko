@@ -6,9 +6,9 @@ pipeline {
         sh 'docker-compose build --no-cache'
       }
     }
-    stage ('Deploy Integration') {
-      // Integration not yet set up
-    }
+    /*stage ('Deploy Integration') {
+
+    }*/
     stage ('Deploy Master') {
       when {
         expression { BRANCH_NAME == 'master' }
