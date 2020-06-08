@@ -2,16 +2,16 @@ version: "3.5"
 services:
   toriel:
     build: .
-    container_name: toriel_${BRANCH_NAME}
+    container_name: toriel
     depends_on:
       - redis
     volumes:
       - type: bind
-        source: ./credentials.json
+        source: /toriel/credentials.json
         target: /app/credentials.json
         read_only: true
       - type: bind
-        source: ./data
+        source: /toriel/data
         target: /app/data
     environment:
       NadekoBot_RedisOptions: redis,name=toriel
@@ -23,8 +23,3 @@ services:
     sysctls:
       net.core.somaxconn: 511
     restart: always
-  #watchtower:
-  #  image: v2tec/watchtower
-  #  volumes:
-  #    - /var/run/docker.sock:/var/run/docker.sock
-  #  command: --interval 86400 --cleanup --label-enable
